@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../data/constants/strings_res.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
 
@@ -10,13 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
         title: Text(widget.title),
       ),
-      body: const Column(
+      body: Column(
         children: [
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
 
+                  },
+                  child: Text(StringsRes.buttonTextVideo.toUpperCase()),
+              ),
+            ],
+          ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
