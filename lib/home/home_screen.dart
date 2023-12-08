@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:media_record/utils/my_utils.dart';
 
 import '../data/constants/strings_res.dart';
 
@@ -12,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  bool isVideo = false;
   @override
   Widget build(BuildContext context) {
 
@@ -25,15 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              ElevatedButton(
-                  onPressed: () {
+          const Text('Bienvenue !'),
+          const Text('Choisissez le média à enregistrer : '),
 
-                  },
-                  child: Text(StringsRes.buttonTextVideo.toUpperCase()),
-              ),
-            ],
+          Container(
+            margin: const EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      MyUtils.onVideoButtonPressed(ImageSource.camera);
+                    },
+                    child: Text(StringsRes.buttonTextVideo.toUpperCase()),
+                ),
+                ElevatedButton(
+                    onPressed: () {},
+                    child: Text(StringsRes.buttonTextAudio.toUpperCase()),
+                ),
+              ],
+            ),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
