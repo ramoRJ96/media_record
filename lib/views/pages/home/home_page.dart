@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:media_record/utils/my_utils.dart';
+import 'package:media_record/views/pages/record_audio/record_audio_page.dart';
+import '../../../data/constants/strings_res.dart';
+import 'package:get/get.dart';
 
-import '../data/constants/strings_res.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   bool isVideo = false;
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(StringsRes.buttonTextVideo.toUpperCase()),
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => const RecordAudioPage());
+                    },
                     child: Text(StringsRes.buttonTextAudio.toUpperCase()),
                 ),
               ],
