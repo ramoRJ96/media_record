@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:media_record/home/widgets/video_player.dart';
 
 import '../data/constants/strings_res.dart';
 
@@ -12,15 +13,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
         title: Text(widget.title),
       ),
       body: Column(
@@ -28,13 +25,15 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               ElevatedButton(
-                  onPressed: () {
-
-                  },
-                  child: Text(StringsRes.buttonTextVideo.toUpperCase()),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const VideoPlayerScreen()));
+                },
+                child: Text(StringsRes.buttonTextVideo.toUpperCase()),
               ),
             ],
           ),
+          // const MediaList()
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
