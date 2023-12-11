@@ -38,6 +38,10 @@ dependencies:
   get: ^4.6.6
   shared_preferences: ^2.2.2
   chewie: ^1.7.4
+  image_picker: ^1.0.4
+  gallery_saver: ^2.3.2
+  record: ^4.4.4
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:

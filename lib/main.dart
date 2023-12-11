@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:media_record/views/pages/home/home_page.dart';
+import 'package:get/get.dart';
 import 'helper/shared_pref.dart';
-import 'home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Media Record',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(title: 'Record Video & Audio'),
+      home: const HomePage(title: 'Record Video & Audio'),
     );
   }
 }
