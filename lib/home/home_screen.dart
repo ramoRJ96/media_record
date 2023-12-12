@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:media_record/home/widgets/video_player.dart';
+import 'package:media_record/features/home/widgets/media_list.dart';
+import 'package:media_record/features/video/pages/video_player_screen.dart';
 
-import '../data/constants/strings_res.dart';
+import '../core/constants/strings_res.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -33,7 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          // const MediaList()
+          const MediaList(),
+          const SizedBox(
+            height: 40,
+          )
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
