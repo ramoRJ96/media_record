@@ -28,7 +28,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          leading: IconButton(
+        iconSize: 22,
+        splashRadius: 22,
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: Color(0xFF434343),
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      )),
       body: Obx(() {
         return Column(
           children: <Widget>[

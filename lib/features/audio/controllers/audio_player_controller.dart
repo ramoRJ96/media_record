@@ -1,10 +1,10 @@
+import 'package:chewie_audio/chewie_audio.dart';
 import 'package:get/get.dart';
-import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerAppController extends GetxController {
+class AudioPlayerAppController extends GetxController {
   late VideoPlayerController videoPlayerController;
-  Rxn<ChewieController> chewieController = Rxn<ChewieController>();
+  Rxn<ChewieAudioController> chewieController = Rxn<ChewieAudioController>();
   int? bufferDelay;
 
   /// Initialization du controlleur de la videoPlayer
@@ -16,11 +16,10 @@ class VideoPlayerAppController extends GetxController {
   }
 
   void _createChewieController() {
-    chewieController.value = ChewieController(
+    chewieController.value = ChewieAudioController(
       videoPlayerController: videoPlayerController,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
-      hideControlsTimer: const Duration(seconds: 5),
     );
   }
 

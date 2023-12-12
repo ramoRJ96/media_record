@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/strings_res.dart';
+import 'package:media_record/features/audio/pages/audio_player_screen.dart';
 import 'package:media_record/features/home/controllers/media_list_controller.dart';
 import 'package:media_record/features/video/pages/video_player_screen.dart';
 
@@ -24,7 +25,13 @@ class MediaList extends StatelessWidget {
                   StringsRes.colors.elementAt(mediaListController.indexColor),
               child: InkWell(
                 onTap: () {
-                  Get.to(VideoPlayerScreen(media: StringsRes.srcs[index]));
+                  if (StringsRes.srcs[index].contains("mp4")) {
+                    Get.to(
+                        () => VideoPlayerScreen(media: StringsRes.srcs[index]));
+                  } else {
+                    Get.to(
+                        () => AudioPlayerScreen(media: StringsRes.srcs[index]));
+                  }
                 },
                 child: Center(
                     child: Icon(

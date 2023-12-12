@@ -64,7 +64,7 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
       pathAudios = medias;
       pathAudios.add(path.toString());
       for (int i = 0; i < pathAudios.length; i++) {
-        if(await MyUtils.checkFileExists(pathAudios[i])) {
+        if (await MyUtils.checkFileExists(pathAudios[i])) {
           print(pathAudios[i]);
         }
       }
@@ -93,28 +93,35 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
           title: const Text('Record audio'),
         ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if(isRecording)
-              const Column(children: [
-                Icon(Icons.mic, size: 60,),
-                Text('Recording audio in progress ...'),
-              ],),
-            ElevatedButton(
-              onPressed: isRecording ? cancelAudioRecording : startAudioRecording,
-              child: isRecording ? const Text('Cancel Recording') : const Text('Start Recording'),
-            ),
-            const SizedBox(height: 25,),
-          ],
-        ),
-      )
-    );
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (isRecording)
+                const Column(
+                  children: [
+                    Icon(
+                      Icons.mic,
+                      size: 60,
+                    ),
+                    Text('Recording audio in progress ...'),
+                  ],
+                ),
+              ElevatedButton(
+                onPressed:
+                    isRecording ? cancelAudioRecording : startAudioRecording,
+                child: isRecording
+                    ? const Text('Cancel Recording')
+                    : const Text('Start Recording'),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+            ],
+          ),
+        ));
   }
 }
