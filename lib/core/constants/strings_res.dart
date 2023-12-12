@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 abstract class StringsRes {
   static String get buttonTextVideo => 'Video';
   static String get buttonTextAudio => 'Audio';
+  static String get buttonTextCancelRecording => 'Annuler';
+  static String get buttonTextStartRecording => 'Start';
 
   static const colors = [
     Color(0xFFCBEEE4),

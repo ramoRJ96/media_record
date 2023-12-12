@@ -1,9 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:record/record.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/constants/strings_res.dart';
+
 
 class RecordAudioPage extends StatefulWidget {
   const RecordAudioPage({super.key});
@@ -13,11 +14,42 @@ class RecordAudioPage extends StatefulWidget {
 }
 
 class _RecordAudioPageState extends State<RecordAudioPage> {
+  Timer? countdownTimer;
+  Duration recordAudioDuration = const Duration(seconds: 10);
   late Record audioRecord;
   bool isRecording = false;
   String audioPath = '';
-  var pathAudios = <String>[];
-  late Timer timer;
+  List<String> pathAudios = <String>[];
+   late Timer timer;
+
+  void startTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
+  }
+  
+  void stopTimer() {
+    setState(() {
+      countdownTimer!.cancel();
+    });
+  }
+  
+  void resetTimer() {
+    stopTimer();
+    setState(() {
+      recordAudioDuration = const Duration(seconds: 10);
+    });
+  }
+  
+  void setCountDown() {
+    final reduceSecondsBy = 1;
+    setState(() {
+      final seconds = recordAudioDuration.inSeconds - reduceSecondsBy;
+      if (seconds < 0) {
+        countdownTimer!.cancel();
+      } else {
+        recordAudioDuration = Duration(seconds: seconds);
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -38,9 +70,13 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
         setState(() {
           isRecording = true;
         });
+        // resetTimer();
+        startTimer();
         timer = Timer(const Duration(seconds: 10), () {
           stopAudioRecording();
           print('Record success');
+          stopTimer();
+          // resetTimer();
         });
       }
     } catch (e) {
@@ -52,26 +88,24 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
     try {
       String? path = await audioRecord.stop();
       // pathAudios.add(path.toString());
-      // for (int i = 0; i < pathAudios.length; i++) {
-      //   if(await MyUtils.checkFileExists(pathAudios[i])) {
-      //     print(pathAudios[i]);
-      //   }
-      // }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var medias = prefs.getStringList('medias');
-      medias?.add(path.toString());
-      prefs.setStringList('medias', medias!);
-      pathAudios = medias;
-      pathAudios.add(path.toString());
-      for (int i = 0; i < pathAudios.length; i++) {
-        if (await MyUtils.checkFileExists(pathAudios[i])) {
-          print(pathAudios[i]);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.getStringList('medias') == null) {
+        prefs.setStringList('medias', <String>[]);
+      }
+      var medias = prefs.getStringList('medias')!;
+      medias.add(path.toString());
+      prefs.setStringList('medias', medias);
+      for (int i = 0; i < medias.length; i++) {
+        if(await MyUtils.checkFileExists(medias[i])) {
+          print(medias[i]);
         }
       }
       setState(() {
         isRecording = false;
         audioPath = path!;
       });
+
+      resetTimer();
     } catch (e) {
       print('Error Stop Recording : $e');
     }
@@ -80,6 +114,7 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
   Future<void> cancelAudioRecording() async {
     try {
       timer.cancel();
+      resetTimer();
       print('Cancel recording');
       setState(() {
         isRecording = false;
@@ -91,37 +126,34 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
 
   @override
   Widget build(BuildContext context) {
+    String strDigits(int n) => n.toString().padLeft(2, '0');
+    final seconds = strDigits(recordAudioDuration.inSeconds);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Record audio'),
+
+          title: const Text('Enregistrement audio', style: TextStyle(fontSize: 16.0),),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              if (isRecording)
-                const Column(
-                  children: [
-                    Icon(
-                      Icons.mic,
-                      size: 60,
-                    ),
-                    Text('Recording audio in progress ...'),
-                  ],
-                ),
-              ElevatedButton(
-                onPressed:
-                    isRecording ? cancelAudioRecording : startAudioRecording,
-                child: isRecording
-                    ? const Text('Cancel Recording')
-                    : const Text('Start Recording'),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-            ],
-          ),
-        ));
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if(!isRecording)
+              const Text('Appuyez sur Start pour commencer l\'enregistrement'),
+            if(isRecording)
+              Column(children: [
+                const Icon(Icons.mic, size: 60.0,),
+                Text('00:00:$seconds'),
+                const Text('Enregistrement audio en cours'),
+              ],),
+            ElevatedButton(
+              onPressed: isRecording ? cancelAudioRecording : startAudioRecording,
+              child: isRecording ? Text(StringsRes.buttonTextCancelRecording) : Text(StringsRes.buttonTextStartRecording),
+            ),
+            const SizedBox(height: 25.0,),
+          ],
+        ),
+      )
+    );
   }
 }
