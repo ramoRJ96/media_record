@@ -11,6 +11,8 @@ abstract class StringsRes {
       'Appuyez sur Start pour commencer l\'enregistrement';
   static String get recordLoading => 'Enregistrement audio en cours';
   static String get hhmm => '00:00:';
+  static String get welcome => 'Bienvenue !';
+  static String get chooseMediaRecord => 'Choisissez le média à enregistrer : ';
 
   static const colors = [
     Color(0xFFCBEEE4),

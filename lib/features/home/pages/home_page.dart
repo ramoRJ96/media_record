@@ -2,59 +2,76 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:media_record/features/home/widgets/media_list.dart';
+import 'package:media_record/widgets/app_bar_screen.dart';
 import '../../../core/constants/strings_res.dart';
 import 'package:get/get.dart';
 
 import '../../audio/pages/record_audio_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.title});
 
   final String title;
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  final headerGap = 20.0;
+  final buttonsGap = 10.0;
 
-class _HomePageState extends State<HomePage> {
-  bool isVideo = false;
+  Widget _recordButton() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: buttonsGap),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              MyUtils.onVideoButtonPressed(ImageSource.camera);
+            },
+            child: Text(StringsRes.buttonTextVideo.toUpperCase()),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.to(() => const RecordAudioPage());
+            },
+            child: Text(StringsRes.buttonTextAudio.toUpperCase()),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: headerGap),
+          child: Text(
+            StringsRes.welcome,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+        Text(
+          StringsRes.chooseMediaRecord,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        _recordButton(),
+        const MediaList(),
+        const SizedBox(
+          height: 40,
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+      appBar: AppBarScreen(
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
-      body: Column(
-        children: [
-          const Text('Bienvenue !'),
-          const Text('Choisissez le média à enregistrer : '),
-          Container(
-            margin: const EdgeInsets.only(top: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    MyUtils.onVideoButtonPressed(ImageSource.camera);
-                  },
-                  child: Text(StringsRes.buttonTextVideo.toUpperCase()),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => const RecordAudioPage());
-                  },
-                  child: Text(StringsRes.buttonTextAudio.toUpperCase()),
-                ),
-              ],
-            ),
-          ),
-          const MediaList(),
-          const SizedBox(
-            height: 40,
-          )
-        ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: _body(context),
     );
   }
 }

@@ -73,6 +73,7 @@ class RecordAudioPage extends StatelessWidget {
             StringsRes.audioRecord,
             style: Theme.of(context).textTheme.titleLarge,
           ),
+          enableLeading: true,
         ),
         body: body(
           context: context,
