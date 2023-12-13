@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
@@ -9,10 +11,23 @@ class VideoPlayerAppController extends GetxController {
 
   /// Initialization du controlleur de la videoPlayer
   Future<void> initializePlayer(String media) async {
-    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(media));
+    videoPlayerController = _isNetworkUrl(media)
+        ? VideoPlayerController.networkUrl(Uri.parse(media))
+        : VideoPlayerController.file(File(media));
     await videoPlayerController.initialize();
     _createChewieController();
     refresh();
+  }
+
+  /// Check if [path] is a network url
+  ///
+  /// If the URI is absolute, it is a network URL
+  bool _isNetworkUrl(String path) {
+    Uri? uri = Uri.tryParse(path);
+    if (uri != null) {
+      return uri.isAbsolute;
+    }
+    return false;
   }
 
   void _createChewieController() {

@@ -34,13 +34,13 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-			<true/>
+		<true/>
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
-			<true/>
+		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This app necessitates camera access to enable users to capture and share photos as
-			posts within the application.</string>	
+			posts within the application.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

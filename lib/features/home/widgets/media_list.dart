@@ -12,38 +12,51 @@ class MediaList extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaListController mediaListController = Get.put(MediaListController());
     return Expanded(
-      child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          shrinkWrap: true,
-          itemCount: StringsRes.srcs.length,
-          itemBuilder: (BuildContext context, int index) {
-            mediaListController.getIndexColors();
-            return Card(
-              color:
-                  StringsRes.colors.elementAt(mediaListController.indexColor),
-              child: InkWell(
-                onTap: () {
-                  if (StringsRes.srcs[index].contains("mp4")) {
-                    Get.to(
-                        () => VideoPlayerScreen(media: StringsRes.srcs[index]));
-                  } else {
-                    Get.to(
-                        () => AudioPlayerScreen(media: StringsRes.srcs[index]));
-                  }
-                },
-                child: Center(
-                    child: Icon(
-                  StringsRes.srcs[index].contains("mp4")
-                      ? Icons.play_arrow_rounded
-                      : Icons.music_note,
-                  size: 40,
-                  color: Colors.white,
-                )),
-              ),
-            );
-          }),
+      child: Obx(() {
+        List<String> mediaList = mediaListController.mediaList;
+
+        if (mediaList.isEmpty) {
+          return Center(
+            child: Text(
+              "Aucun média",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          );
+        }
+
+        return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            shrinkWrap: true,
+            itemCount: mediaList.length,
+            itemBuilder: (BuildContext context, int index) {
+              mediaListController.getIndexColors();
+              return Card(
+                color:
+                    StringsRes.colors.elementAt(mediaListController.indexColor),
+                child: InkWell(
+                  onTap: () {
+                    if (mediaList[index].contains("mp4") ||
+                        mediaList[index].contains("MOV")) {
+                      Get.to(() => VideoPlayerScreen(media: mediaList[index]));
+                    } else {
+                      Get.to(() => AudioPlayerScreen(media: mediaList[index]));
+                    }
+                  },
+                  child: Center(
+                      child: Icon(
+                    (mediaList[index].contains("mp4") ||
+                            mediaList[index].contains("MOV"))
+                        ? Icons.play_arrow_rounded
+                        : Icons.music_note,
+                    size: 40,
+                    color: Colors.white,
+                  )),
+                ),
+              );
+            });
+      }),
     );
   }
 }

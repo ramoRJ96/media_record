@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:media_record/features/home/controllers/media_list_controller.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:record/record.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constants/strings_res.dart';
-
 
 class RecordAudioPage extends StatefulWidget {
   const RecordAudioPage({super.key});
@@ -20,27 +21,28 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
   bool isRecording = false;
   String audioPath = '';
   List<String> pathAudios = <String>[];
-   late Timer timer;
+  late Timer timer;
 
   void startTimer() {
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
+    countdownTimer =
+        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
   }
-  
+
   void stopTimer() {
     setState(() {
       countdownTimer!.cancel();
     });
   }
-  
+
   void resetTimer() {
     stopTimer();
     setState(() {
       recordAudioDuration = const Duration(seconds: 10);
     });
   }
-  
+
   void setCountDown() {
-    final reduceSecondsBy = 1;
+    int reduceSecondsBy = 1;
     setState(() {
       final seconds = recordAudioDuration.inSeconds - reduceSecondsBy;
       if (seconds < 0) {
@@ -84,7 +86,7 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
     }
   }
 
-  Future<void> stopAudioRecording() async {
+  void stopAudioRecording() async {
     try {
       String? path = await audioRecord.stop();
       // pathAudios.add(path.toString());
@@ -96,7 +98,7 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
       medias.add(path.toString());
       prefs.setStringList('medias', medias);
       for (int i = 0; i < medias.length; i++) {
-        if(await MyUtils.checkFileExists(medias[i])) {
+        if (await MyUtils.checkFileExists(medias[i])) {
           print(medias[i]);
         }
       }
@@ -130,30 +132,54 @@ class _RecordAudioPageState extends State<RecordAudioPage> {
     final seconds = strDigits(recordAudioDuration.inSeconds);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-          title: const Text('Enregistrement audio', style: TextStyle(fontSize: 16.0),),
-        ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if(!isRecording)
-              const Text('Appuyez sur Start pour commencer l\'enregistrement'),
-            if(isRecording)
-              Column(children: [
-                const Icon(Icons.mic, size: 60.0,),
-                Text('00:00:$seconds'),
-                const Text('Enregistrement audio en cours'),
-              ],),
-            ElevatedButton(
-              onPressed: isRecording ? cancelAudioRecording : startAudioRecording,
-              child: isRecording ? Text(StringsRes.buttonTextCancelRecording) : Text(StringsRes.buttonTextStartRecording),
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            title: const Text(
+              'Enregistrement audio',
+              style: TextStyle(fontSize: 16.0),
             ),
-            const SizedBox(height: 25.0,),
-          ],
-        ),
-      )
-    );
+            leading: IconButton(
+              iconSize: 22,
+              splashRadius: 22,
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Color(0xFF434343),
+              ),
+              onPressed: () async {
+                var mediaListController = Get.find<MediaListController>();
+                await mediaListController.getMediaFromStorage();
+                Get.back();
+              },
+            )),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (!isRecording)
+                const Text(
+                    'Appuyez sur Start pour commencer l\'enregistrement'),
+              if (isRecording)
+                Column(
+                  children: [
+                    const Icon(
+                      Icons.mic,
+                      size: 60.0,
+                    ),
+                    Text('00:00:$seconds'),
+                    const Text('Enregistrement audio en cours'),
+                  ],
+                ),
+              ElevatedButton(
+                onPressed:
+                    isRecording ? cancelAudioRecording : startAudioRecording,
+                child: isRecording
+                    ? Text(StringsRes.buttonTextCancelRecording)
+                    : Text(StringsRes.buttonTextStartRecording),
+              ),
+              const SizedBox(
+                height: 25.0,
+              ),
+            ],
+          ),
+        ));
   }
 }

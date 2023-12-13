@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:media_record/features/home/controllers/media_list_controller.dart';
+import 'package:media_record/helper/shared_pref.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:video_player/video_player.dart';
 
 class MyUtils {
   static var pathVideos = <String>[];
@@ -11,23 +11,12 @@ class MyUtils {
   static Future<void> onVideoButtonPressed(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
     final XFile? file = await picker.pickVideo(
-      source: source, maxDuration: const Duration(seconds: 10)
-    );
+        source: source, maxDuration: const Duration(seconds: 10));
     if (file != null) {
       GallerySaver.saveVideo(file.path);
-      // pathVideos.add(file.path);
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      if (prefs.getStringList('medias') == null) {
-        prefs.setStringList('medias', <String>[]);
-      }
-      var medias = prefs.getStringList('medias')!;
-      medias.add(file.path);
-      prefs.setStringList('medias', medias);
-      for (int i = 0; i < medias.length; i++) {
-        if(await checkFileExists(medias[i])) {
-          print(medias[i]);
-        }
-      }
+      SharedPrefHelper.addMediaInLocalStorage(file.path);
+      var mediaListController = Get.find<MediaListController>();
+      await mediaListController.getMediaFromStorage();
     }
   }
 

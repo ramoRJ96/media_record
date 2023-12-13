@@ -14,11 +14,4 @@ abstract class StringsRes {
     Color(0xFFFFD4D3),
     Color(0xFFFFE6BF),
   ];
-
-  static List<String> srcs = [
-    "https://www.w3schools.com/html/horse.mp3",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
-  ];
 }
