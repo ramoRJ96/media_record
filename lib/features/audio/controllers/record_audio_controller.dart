@@ -1,18 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:media_record/utils/my_utils.dart';
+import 'package:media_record/helper/shared_pref.dart';
 import 'package:record/record.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RecordAudioController extends GetxController {
-  var countdownTimer = Rxn<Timer>();
-  var recordAudioDuration = const Duration(seconds: 10).obs;
-  late Record audioRecord;
-  var isRecording = false.obs;
   String audioPath = '';
-  List<String> pathAudios = <String>[];
+  final counterStep = 1;
+  final recordAudioDuration = 10;
+
+  var countdownTimer = Rxn<Timer>();
+  var recordAudioCounter = 10.obs;
+  var isRecording = false.obs;
+
+  late Record audioRecord;
   late Timer timer;
+
+  List<String> pathAudios = <String>[];
 
   @override
   void onInit() {
@@ -22,7 +26,7 @@ class RecordAudioController extends GetxController {
 
   void startTimer() {
     countdownTimer.value =
-        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
+        Timer.periodic(Duration(seconds: counterStep), (_) => setCountDown());
   }
 
   void stopTimer() {
@@ -31,16 +35,16 @@ class RecordAudioController extends GetxController {
 
   void resetTimer() {
     stopTimer();
-    recordAudioDuration.value = const Duration(seconds: 10);
+    recordAudioCounter.value = recordAudioDuration;
   }
 
   void setCountDown() {
-    int reduceSecondsBy = 1;
-    final seconds = recordAudioDuration.value.inSeconds - reduceSecondsBy;
-    if (seconds < 0) {
+    recordAudioCounter--;
+    if (recordAudioCounter <= 0) {
+      stopAudioRecording();
+      stopTimer();
+      debugPrint('Record success');
       countdownTimer.value?.cancel();
-    } else {
-      recordAudioDuration.value = Duration(seconds: seconds);
     }
   }
 
@@ -49,14 +53,7 @@ class RecordAudioController extends GetxController {
       if (await audioRecord.hasPermission()) {
         await audioRecord.start();
         isRecording.value = true;
-
         startTimer();
-        timer = Timer(const Duration(seconds: 10), () {
-          stopAudioRecording();
-          debugPrint('Record success');
-          stopTimer();
-          // resetTimer();
-        });
       }
     } catch (e) {
       debugPrint('Error Start Recording : $e');
@@ -66,22 +63,11 @@ class RecordAudioController extends GetxController {
   void stopAudioRecording() async {
     try {
       String? path = await audioRecord.stop();
-      // pathAudios.add(path.toString());
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      if (prefs.getStringList('medias') == null) {
-        prefs.setStringList('medias', <String>[]);
-      }
-      var medias = prefs.getStringList('medias')!;
-      medias.add(path.toString());
-      prefs.setStringList('medias', medias);
-      for (int i = 0; i < medias.length; i++) {
-        if (await MyUtils.checkFileExists(medias[i])) {
-          debugPrint(medias[i]);
-        }
+      if (path != null) {
+        SharedPrefHelper.addMediaInLocalStorage(path);
       }
       isRecording.value = false;
       audioPath = path!;
-
       resetTimer();
     } catch (e) {
       debugPrint('Error Stop Recording : $e');

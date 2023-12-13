@@ -1,12 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:media_record/features/home/controllers/media_list_controller.dart';
 import 'package:media_record/utils/my_utils.dart';
+import 'package:media_record/widgets/app_bar_screen.dart';
 import '../../../core/constants/strings_res.dart';
 import '../controllers/record_audio_controller.dart';
 
 class RecordAudioPage extends StatelessWidget {
   const RecordAudioPage({super.key});
+
+  final marginBetween = 30.0;
+  final bottomMargin = 25.0;
+  final micIconSize = 60.0;
+
+  Widget body({
+    required RecordAudioController recordAudioController,
+    required BuildContext context,
+  }) {
+    return Center(
+      child: Obx(() {
+        final recordCounter =
+            MyUtils.strDigits(recordAudioController.recordAudioCounter.value);
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if (!recordAudioController.isRecording.value)
+              Text(
+                StringsRes.pressToStartRecord,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            SizedBox(
+              height: marginBetween,
+            ),
+            if (recordAudioController.isRecording.value)
+              Column(
+                children: [
+                  Icon(
+                    Icons.mic,
+                    size: micIconSize,
+                  ),
+                  Text('${StringsRes.hhmm}$recordCounter'),
+                  Text(
+                    StringsRes.recordLoading,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ElevatedButton(
+              onPressed: recordAudioController.isRecording.value
+                  ? recordAudioController.cancelAudioRecording
+                  : recordAudioController.startAudioRecording,
+              child: recordAudioController.isRecording.value
+                  ? Text(StringsRes.buttonTextCancelRecording)
+                  : Text(StringsRes.buttonTextStartRecording),
+            ),
+            SizedBox(
+              height: bottomMargin,
+            ),
+          ],
+        );
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,60 +68,15 @@ class RecordAudioPage extends StatelessWidget {
         Get.put(RecordAudioController());
 
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: const Text(
-              'Enregistrement audio',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            leading: IconButton(
-              iconSize: 22,
-              splashRadius: 22,
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Color(0xFF434343),
-              ),
-              onPressed: () async {
-                var mediaListController = Get.find<MediaListController>();
-                await mediaListController.getMediaFromStorage();
-                Get.back();
-              },
-            )),
-        body: Center(
-          child: Obx(() {
-            final seconds = MyUtils.strDigits(
-                recordAudioController.recordAudioDuration.value.inSeconds);
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                if (!recordAudioController.isRecording.value)
-                  const Text(
-                      'Appuyez sur Start pour commencer l\'enregistrement'),
-                if (recordAudioController.isRecording.value)
-                  Column(
-                    children: [
-                      const Icon(
-                        Icons.mic,
-                        size: 60.0,
-                      ),
-                      Text('00:00:$seconds'),
-                      const Text('Enregistrement audio en cours'),
-                    ],
-                  ),
-                ElevatedButton(
-                  onPressed: recordAudioController.isRecording.value
-                      ? recordAudioController.cancelAudioRecording
-                      : recordAudioController.startAudioRecording,
-                  child: recordAudioController.isRecording.value
-                      ? Text(StringsRes.buttonTextCancelRecording)
-                      : Text(StringsRes.buttonTextStartRecording),
-                ),
-                const SizedBox(
-                  height: 25.0,
-                ),
-              ],
-            );
-          }),
+        appBar: AppBarScreen(
+          title: Text(
+            StringsRes.audioRecord,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        body: body(
+          context: context,
+          recordAudioController: recordAudioController,
         ));
   }
 }

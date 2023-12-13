@@ -6,6 +6,11 @@ abstract class StringsRes {
   static String get buttonTextCancelRecording => 'Annuler';
   static String get buttonTextStartRecording => 'Start';
   static String get loading => 'Chargement';
+  static String get audioRecord => 'Enregistrement audio';
+  static String get pressToStartRecord =>
+      'Appuyez sur Start pour commencer l\'enregistrement';
+  static String get recordLoading => 'Enregistrement audio en cours';
+  static String get hhmm => '00:00:';
 
   static const colors = [
     Color(0xFFCBEEE4),
