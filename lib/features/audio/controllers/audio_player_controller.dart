@@ -9,7 +9,9 @@ class AudioPlayerAppController extends GetxController {
   Rxn<ChewieAudioController> chewieController = Rxn<ChewieAudioController>();
   int? bufferDelay;
 
-  /// Initialization du controlleur de la videoPlayer
+  /// Initialize all stuffs for the audio player
+  /// 
+  /// You can use network url or file path for the [media]
   Future<void> initializePlayer(String media) async {
     videoPlayerController = _isNetworkUrl(media)
         ? VideoPlayerController.networkUrl(Uri.parse(media))
@@ -19,6 +21,7 @@ class AudioPlayerAppController extends GetxController {
     refresh();
   }
 
+  /// Check if the [path] is a network url 
   bool _isNetworkUrl(String path) {
     Uri? uri = Uri.tryParse(path);
     if (uri != null) {
@@ -28,6 +31,7 @@ class AudioPlayerAppController extends GetxController {
     return false;
   }
 
+  /// ChewieController has many options to control the audio player
   void _createChewieController() {
     chewieController.value = ChewieAudioController(
       videoPlayerController: videoPlayerController,

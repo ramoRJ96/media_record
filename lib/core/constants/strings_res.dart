@@ -5,6 +5,7 @@ abstract class StringsRes {
   static String get buttonTextAudio => 'Audio';
   static String get buttonTextCancelRecording => 'Annuler';
   static String get buttonTextStartRecording => 'Start';
+  static String get loading => 'Chargement';
 
   static const colors = [
     Color(0xFFCBEEE4),

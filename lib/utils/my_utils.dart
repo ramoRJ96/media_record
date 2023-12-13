@@ -23,4 +23,6 @@ class MyUtils {
   static Future<bool> checkFileExists(String path) {
     return File(path).exists();
   }
+
+  static String strDigits(int n) => n.toString().padLeft(2, '0');
 }
