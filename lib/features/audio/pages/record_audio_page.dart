@@ -8,9 +8,9 @@ import '../controllers/record_audio_controller.dart';
 class RecordAudioPage extends StatelessWidget {
   const RecordAudioPage({super.key});
 
-  final marginBetween = 30.0;
-  final bottomMargin = 25.0;
-  final micIconSize = 60.0;
+  final _marginBetween = 30.0;
+  final _bottomMargin = 25.0;
+  final _micIconSize = 60.0;
 
   Widget body({
     required RecordAudioController recordAudioController,
@@ -29,14 +29,14 @@ class RecordAudioPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             SizedBox(
-              height: marginBetween,
+              height: _marginBetween,
             ),
             if (recordAudioController.isRecording.value)
               Column(
                 children: [
                   Icon(
                     Icons.mic,
-                    size: micIconSize,
+                    size: _micIconSize,
                   ),
                   Text('${StringsRes.hhmm}$recordCounter'),
                   Text(
@@ -54,7 +54,7 @@ class RecordAudioPage extends StatelessWidget {
                   : Text(StringsRes.buttonTextStartRecording),
             ),
             SizedBox(
-              height: bottomMargin,
+              height: _bottomMargin,
             ),
           ],
         );

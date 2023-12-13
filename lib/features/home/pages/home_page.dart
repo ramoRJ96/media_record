@@ -13,12 +13,13 @@ class HomePage extends StatelessWidget {
 
   final String title;
 
-  final headerGap = 20.0;
-  final buttonsGap = 10.0;
+  final _headerGap = 20.0;
+  final _buttonsGap = 10.0;
+  final _marginBottom = 40.0;
 
   Widget _recordButton() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: buttonsGap),
+      margin: EdgeInsets.symmetric(vertical: _buttonsGap),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: headerGap),
+          margin: EdgeInsets.symmetric(vertical: _headerGap),
           child: Text(
             StringsRes.welcome,
             style: Theme.of(context).textTheme.headlineSmall,
@@ -55,8 +56,8 @@ class HomePage extends StatelessWidget {
         ),
         _recordButton(),
         const MediaList(),
-        const SizedBox(
-          height: 40,
+        SizedBox(
+          height: _marginBottom,
         )
       ],
     );

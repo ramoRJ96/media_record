@@ -18,13 +18,13 @@ class AudioPlayerScreen extends StatefulWidget {
 }
 
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
-  final AudioPlayerAppController audioPlayerAppController =
+  final AudioPlayerAppController _audioPlayerAppController =
       Get.put(AudioPlayerAppController());
-  final marginBetween = 20.0;
+  final _marginBetween = 20.0;
 
   @override
   void initState() {
-    audioPlayerAppController.initializePlayer(widget.media);
+    _audioPlayerAppController.initializePlayer(widget.media);
     super.initState();
   }
 
@@ -34,7 +34,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       appBar: const AppBarScreen(),
       body: Obx(() {
         var audioPlayerController =
-            audioPlayerAppController.chewieController.value;
+            _audioPlayerAppController.chewieController.value;
 
         return Column(
           children: <Widget>[
@@ -50,7 +50,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const CircularProgressIndicator(),
-                          SizedBox(height: marginBetween),
+                          SizedBox(height: _marginBetween),
                           Text(StringsRes.loading),
                         ],
                       ),
