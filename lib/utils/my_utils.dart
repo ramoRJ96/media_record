@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/constants.dart';
-import 'package:media_record/features/home/controllers/media_list_controller.dart';
+import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/helper/shared_pref.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';

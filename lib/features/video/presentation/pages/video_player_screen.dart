@@ -2,8 +2,8 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/colors.dart';
-import 'package:media_record/core/constants/strings_res.dart';
-import 'package:media_record/features/video/controllers/video_player_controller.dart';
+import 'package:media_record/core/constants/resources.dart';
+import 'package:media_record/features/video/presentation/controllers/video_player_controller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({
@@ -70,7 +70,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         children: [
                           const CircularProgressIndicator(),
                           SizedBox(height: _marginBetween),
-                          Text(StringsRes.loading),
+                          Text(Resources.loading),
                         ],
                       ),
               ),

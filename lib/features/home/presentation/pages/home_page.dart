@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:media_record/core/constants/colors.dart';
 import 'package:media_record/utils/my_utils.dart';
-import 'package:media_record/features/home/widgets/media_list.dart';
+import 'package:media_record/features/home/presentation/widgets/media_list.dart';
 import 'package:media_record/widgets/app_bar_screen.dart';
-import '../../../core/constants/strings_res.dart';
+import '../../../../core/constants/resources.dart';
 import 'package:get/get.dart';
 
-import '../../audio/pages/record_audio_page.dart';
+import '../../../audio/presentation/pages/record_audio_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.title});
@@ -19,13 +19,13 @@ class HomePage extends StatelessWidget {
 
   void _recordVideo(BuildContext context, bool mounted) async {
     bool? isRecorded = await MyUtils.onVideoButtonPressed(ImageSource.camera);
-    String snackbarText = StringsRes.videoRecordError;
+    String snackbarText = Resources.videoRecordError;
     Color snackbarBackgroundColor = MediaColors.snackbarError;
 
     if (isRecorded != null) {
       snackbarText = isRecorded
-          ? StringsRes.videoRecordSuccessfully
-          : StringsRes.videoRecordNotExactly10Sec;
+          ? Resources.videoRecordSuccessfully
+          : Resources.videoRecordNotExactly10Sec;
       snackbarBackgroundColor =
           isRecorded ? MediaColors.snackbarSuccess : MediaColors.snackbarError;
     }
@@ -50,13 +50,13 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               _recordVideo(context, mounted);
             },
-            child: Text(StringsRes.buttonTextVideo.toUpperCase()),
+            child: Text(Resources.buttonTextVideo.toUpperCase()),
           ),
           ElevatedButton(
             onPressed: () {
               Get.to(() => const RecordAudioPage());
             },
-            child: Text(StringsRes.buttonTextAudio.toUpperCase()),
+            child: Text(Resources.buttonTextAudio.toUpperCase()),
           ),
         ],
       ),
@@ -69,12 +69,12 @@ class HomePage extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(vertical: _headerGap),
           child: Text(
-            StringsRes.welcome,
+            Resources.welcome,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         Text(
-          StringsRes.chooseMediaRecord,
+          Resources.chooseMediaRecord,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         _recordButton(context, mounted),

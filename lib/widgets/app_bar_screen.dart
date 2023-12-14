@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/colors.dart';
-import 'package:media_record/features/home/controllers/media_list_controller.dart';
+import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 
 class AppBarScreen extends StatelessWidget implements PreferredSizeWidget {
   const AppBarScreen({super.key, this.title, this.enableLeading = false});

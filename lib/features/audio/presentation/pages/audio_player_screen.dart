@@ -1,8 +1,8 @@
 import 'package:chewie_audio/chewie_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:media_record/core/constants/strings_res.dart';
-import 'package:media_record/features/audio/controllers/audio_player_controller.dart';
+import 'package:media_record/core/constants/resources.dart';
+import 'package:media_record/features/audio/presentation/controllers/audio_player_controller.dart';
 
 class AudioPlayerScreen extends StatefulWidget {
   const AudioPlayerScreen({

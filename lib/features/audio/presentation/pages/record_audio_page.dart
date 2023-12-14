@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:media_record/widgets/app_bar_screen.dart';
-import '../../../core/constants/strings_res.dart';
+import '../../../../core/constants/resources.dart';
 import '../controllers/record_audio_controller.dart';
 
 class RecordAudioPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class RecordAudioPage extends StatelessWidget {
             children: <Widget>[
               if (!recordAudioController.isRecording.value)
                 Text(
-                  StringsRes.pressToStartRecord,
+                  Resources.pressToStartRecord,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               SizedBox(
@@ -38,9 +38,9 @@ class RecordAudioPage extends StatelessWidget {
                       Icons.mic,
                       size: _micIconSize,
                     ),
-                    Text('${StringsRes.hhmm}$recordCounter'),
+                    Text('${Resources.hhmm}$recordCounter'),
                     Text(
-                      StringsRes.recordLoading,
+                      Resources.recordLoading,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -50,8 +50,8 @@ class RecordAudioPage extends StatelessWidget {
                     ? recordAudioController.cancelAudioRecording
                     : recordAudioController.startAudioRecording,
                 child: recordAudioController.isRecording.value
-                    ? Text(StringsRes.buttonTextCancelRecording)
-                    : Text(StringsRes.buttonTextStartRecording),
+                    ? Text(Resources.buttonTextCancelRecording)
+                    : Text(Resources.buttonTextStartRecording),
               ),
             ],
           );
@@ -68,7 +68,7 @@ class RecordAudioPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBarScreen(
           title: Text(
-            StringsRes.audioRecord,
+            Resources.audioRecord,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           enableLeading: true,

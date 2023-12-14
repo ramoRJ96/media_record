@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_record/core/constants/strings_res.dart';
-import 'package:media_record/features/home/pages/home_page.dart';
+import 'package:media_record/core/constants/resources.dart';
+import 'package:media_record/features/home/presentation/pages/home_page.dart';
 import 'package:get/get.dart';
 import 'helper/shared_pref.dart';
 
@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: StringsRes.materialAppTitle,
+      title: Resources.materialAppTitle,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomePage(title: StringsRes.homeAppBarTitle),
+      home: HomePage(title: Resources.homeAppBarTitle),
     );
   }
 }

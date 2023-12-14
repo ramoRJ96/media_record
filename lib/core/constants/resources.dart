@@ -1,4 +1,4 @@
-abstract class StringsRes {
+abstract class Resources {
   static String get buttonTextVideo => 'Video';
   static String get buttonTextAudio => 'Audio';
   static String get buttonTextCancelRecording => 'Annuler';
