@@ -1,7 +1,9 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:media_record/core/constants/strings_res.dart';
 import 'package:media_record/features/video/controllers/video_player_controller.dart';
+import 'package:media_record/widgets/app_bar_screen.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({
@@ -18,6 +20,7 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   final VideoPlayerAppController videoPlayerController =
       Get.put(VideoPlayerAppController());
+  final _marginBetween = 30.0;
 
   @override
   void initState() {
@@ -28,18 +31,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-        iconSize: 22,
-        splashRadius: 22,
-        icon: const Icon(
-          Icons.arrow_back_ios,
-          color: Color(0xFF434343),
-        ),
-        onPressed: () {
-          Get.back();
-        },
-      )),
+      appBar: const AppBarScreen(),
       body: Obx(() {
         return Column(
           children: <Widget>[
@@ -52,12 +44,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         controller:
                             videoPlayerController.chewieController.value!,
                       )
-                    : const Column(
+                    : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 20),
-                          Text('Loading'),
+                          const CircularProgressIndicator(),
+                          SizedBox(height: _marginBetween),
+                          Text(StringsRes.loading),
                         ],
                       ),
               ),

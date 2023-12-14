@@ -15,7 +15,6 @@ class HomePage extends StatelessWidget {
 
   final _headerGap = 20.0;
   final _buttonsGap = 10.0;
-  final _marginBottom = 40.0;
 
   Widget _recordButton() {
     return Container(
@@ -56,9 +55,6 @@ class HomePage extends StatelessWidget {
         ),
         _recordButton(),
         const MediaList(),
-        SizedBox(
-          height: _marginBottom,
-        )
       ],
     );
   }
@@ -72,7 +68,7 @@ class HomePage extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
-      body: _body(context),
+      body: SafeArea(child: _body(context)),
     );
   }
 }

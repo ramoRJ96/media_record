@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:media_record/core/constants/constants.dart';
 import 'package:media_record/helper/shared_pref.dart';
 import 'package:record/record.dart';
 import 'package:get/get.dart';
@@ -7,14 +8,12 @@ import 'package:get/get.dart';
 class RecordAudioController extends GetxController {
   String audioPath = '';
   final counterStep = 1;
-  final recordAudioDuration = 10;
 
   var countdownTimer = Rxn<Timer>();
-  var recordAudioCounter = 10.obs;
+  var recordAudioCounter = Constants.recordDuration.obs;
   var isRecording = false.obs;
 
   late Record audioRecord;
-  late Timer timer;
 
   List<String> pathAudios = <String>[];
 
@@ -35,7 +34,7 @@ class RecordAudioController extends GetxController {
 
   void resetTimer() {
     stopTimer();
-    recordAudioCounter.value = recordAudioDuration;
+    recordAudioCounter.value = Constants.recordDuration;
   }
 
   void setCountDown() {
@@ -76,7 +75,6 @@ class RecordAudioController extends GetxController {
 
   Future<void> cancelAudioRecording() async {
     try {
-      timer.cancel();
       resetTimer();
       debugPrint('Cancel recording');
       isRecording.value = false;

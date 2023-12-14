@@ -32,33 +32,35 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarScreen(),
-      body: Obx(() {
-        var audioPlayerController =
-            _audioPlayerAppController.chewieController.value;
+      body: SafeArea(
+        child: Obx(() {
+          var audioPlayerController =
+              _audioPlayerAppController.chewieController.value;
 
-        return Column(
-          children: <Widget>[
-            Expanded(
-              child: Center(
-                child: audioPlayerController != null &&
-                        audioPlayerController
-                            .videoPlayerController.value.isInitialized
-                    ? ChewieAudio(
-                        controller: audioPlayerController,
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CircularProgressIndicator(),
-                          SizedBox(height: _marginBetween),
-                          Text(StringsRes.loading),
-                        ],
-                      ),
+          return Column(
+            children: <Widget>[
+              Expanded(
+                child: Center(
+                  child: audioPlayerController != null &&
+                          audioPlayerController
+                              .videoPlayerController.value.isInitialized
+                      ? ChewieAudio(
+                          controller: audioPlayerController,
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircularProgressIndicator(),
+                            SizedBox(height: _marginBetween),
+                            Text(StringsRes.loading),
+                          ],
+                        ),
+                ),
               ),
-            ),
-          ],
-        );
-      }),
+            ],
+          );
+        }),
+      ),
     );
   }
 }

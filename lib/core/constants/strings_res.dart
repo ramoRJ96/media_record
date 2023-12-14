@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 abstract class StringsRes {
   static String get buttonTextVideo => 'Video';
   static String get buttonTextAudio => 'Audio';
@@ -13,13 +11,7 @@ abstract class StringsRes {
   static String get hhmm => '00:00:';
   static String get welcome => 'Bienvenue !';
   static String get chooseMediaRecord => 'Choisissez le média à enregistrer : ';
-
-  static const colors = [
-    Color(0xFFCBEEE4),
-    Color(0xFFFFE9D9),
-    Color(0xFFF4F0E7),
-    Color(0xFFEAF5E0),
-    Color(0xFFFFD4D3),
-    Color(0xFFFFE6BF),
-  ];
+  static String get noMedia => 'Aucun media';
+  static String get homeAppBarTitle => 'Record Video & Audio';
+  static String get materialAppTitle => 'Media Record';
 }

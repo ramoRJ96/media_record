@@ -9,56 +9,54 @@ class RecordAudioPage extends StatelessWidget {
   const RecordAudioPage({super.key});
 
   final _marginBetween = 30.0;
-  final _bottomMargin = 25.0;
   final _micIconSize = 60.0;
 
   Widget body({
     required RecordAudioController recordAudioController,
     required BuildContext context,
   }) {
-    return Center(
-      child: Obx(() {
-        final recordCounter =
-            MyUtils.strDigits(recordAudioController.recordAudioCounter.value);
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (!recordAudioController.isRecording.value)
-              Text(
-                StringsRes.pressToStartRecord,
-                style: Theme.of(context).textTheme.bodyMedium,
+    return SafeArea(
+      child: Center(
+        child: Obx(() {
+          final recordCounter =
+              MyUtils.strDigits(recordAudioController.recordAudioCounter.value);
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (!recordAudioController.isRecording.value)
+                Text(
+                  StringsRes.pressToStartRecord,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              SizedBox(
+                height: _marginBetween,
               ),
-            SizedBox(
-              height: _marginBetween,
-            ),
-            if (recordAudioController.isRecording.value)
-              Column(
-                children: [
-                  Icon(
-                    Icons.mic,
-                    size: _micIconSize,
-                  ),
-                  Text('${StringsRes.hhmm}$recordCounter'),
-                  Text(
-                    StringsRes.recordLoading,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
+              if (recordAudioController.isRecording.value)
+                Column(
+                  children: [
+                    Icon(
+                      Icons.mic,
+                      size: _micIconSize,
+                    ),
+                    Text('${StringsRes.hhmm}$recordCounter'),
+                    Text(
+                      StringsRes.recordLoading,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ElevatedButton(
+                onPressed: recordAudioController.isRecording.value
+                    ? recordAudioController.cancelAudioRecording
+                    : recordAudioController.startAudioRecording,
+                child: recordAudioController.isRecording.value
+                    ? Text(StringsRes.buttonTextCancelRecording)
+                    : Text(StringsRes.buttonTextStartRecording),
               ),
-            ElevatedButton(
-              onPressed: recordAudioController.isRecording.value
-                  ? recordAudioController.cancelAudioRecording
-                  : recordAudioController.startAudioRecording,
-              child: recordAudioController.isRecording.value
-                  ? Text(StringsRes.buttonTextCancelRecording)
-                  : Text(StringsRes.buttonTextStartRecording),
-            ),
-            SizedBox(
-              height: _bottomMargin,
-            ),
-          ],
-        );
-      }),
+            ],
+          );
+        }),
+      ),
     );
   }
 
