@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/colors.dart';
 import 'package:media_record/core/constants/strings_res.dart';
+import 'package:media_record/features/audio/pages/audio_player_screen.dart';
 import 'package:media_record/features/home/controllers/media_list_controller.dart';
+import 'package:media_record/features/video/pages/video_player_screen.dart';
 
 class MediaList extends StatelessWidget {
   const MediaList({super.key});
@@ -42,8 +44,11 @@ class MediaList extends StatelessWidget {
                     .elementAt(mediaListController.indexColor),
                 child: InkWell(
                   onTap: () {
-                    mediaListController.goToMediaPlayer(
-                        mediaList[index], isMediaVideo);
+                    showDialog(
+                        context: context,
+                        builder: (context) => isMediaVideo
+                            ? VideoPlayerScreen(media: mediaList[index])
+                            : AudioPlayerScreen(media: mediaList[index]));
                   },
                   child: Center(
                       child: Icon(

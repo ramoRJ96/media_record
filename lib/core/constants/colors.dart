@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MediaColors {
   static Color blackGrey = const Color(0xFF434343);
   static Color snackbarError = const Color(0xFFDE679C);
+  static Color snackbarSuccess = const Color.fromARGB(255, 37, 188, 128);
   static const gridViewColors = [
     Color(0xFFCBEEE4),
     Color(0xFFFFE9D9),

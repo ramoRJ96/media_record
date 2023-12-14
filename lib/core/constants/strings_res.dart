@@ -16,4 +16,8 @@ abstract class StringsRes {
   static String get materialAppTitle => 'Media Record';
   static String get videoRecordError =>
       "Une erreur est parvenue lors de l'enregistrement de la vidéo";
+  static String get videoRecordNotExactly10Sec =>
+      "La vidéo n'est pas 10 seconde exactement !!!";
+  static String get videoRecordSuccessfully =>
+      "Vidéo enregistrée avec succès !!!";
 }

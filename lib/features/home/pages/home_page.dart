@@ -18,17 +18,25 @@ class HomePage extends StatelessWidget {
   final _buttonsGap = 10.0;
 
   void _recordVideo(BuildContext context, bool mounted) async {
-    bool isRecorded = await MyUtils.onVideoButtonPressed(ImageSource.camera);
+    bool? isRecorded = await MyUtils.onVideoButtonPressed(ImageSource.camera);
+    String snackbarText = StringsRes.videoRecordError;
+    Color snackbarBackgroundColor = MediaColors.snackbarError;
 
-    if (!isRecorded) {
-      final snackBar = SnackBar(
-        backgroundColor: MediaColors.snackbarError,
-        content: Text(StringsRes.videoRecordError),
-      );
+    if (isRecorded != null) {
+      snackbarText = isRecorded
+          ? StringsRes.videoRecordSuccessfully
+          : StringsRes.videoRecordNotExactly10Sec;
+      snackbarBackgroundColor =
+          isRecorded ? MediaColors.snackbarSuccess : MediaColors.snackbarError;
+    }
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
+    final snackBar = SnackBar(
+      backgroundColor: snackbarBackgroundColor,
+      content: Text(snackbarText),
+    );
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 

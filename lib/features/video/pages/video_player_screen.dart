@@ -1,9 +1,9 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:media_record/core/constants/colors.dart';
 import 'package:media_record/core/constants/strings_res.dart';
 import 'package:media_record/features/video/controllers/video_player_controller.dart';
-import 'package:media_record/widgets/app_bar_screen.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({
@@ -21,6 +21,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   final VideoPlayerAppController videoPlayerController =
       Get.put(VideoPlayerAppController());
   final _marginBetween = 30.0;
+  final _closeIconRightPosition = 20.0;
+  final _closeIconTopPosition = 30.0;
+  final _closeIconSize = 35.0;
+  final _videoPlayerWidth = Get.width;
+  final _videoPlayerHeight = Get.height * .6;
 
   @override
   void initState() {
@@ -30,33 +35,51 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarScreen(),
-      body: Obx(() {
-        return Column(
-          children: <Widget>[
-            Expanded(
-              child: Center(
-                child: videoPlayerController.chewieController.value != null &&
-                        videoPlayerController.chewieController.value!
-                            .videoPlayerController.value.isInitialized
-                    ? Chewie(
-                        controller:
-                            videoPlayerController.chewieController.value!,
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CircularProgressIndicator(),
-                          SizedBox(height: _marginBetween),
-                          Text(StringsRes.loading),
-                        ],
-                      ),
+    return Obx(() {
+      return SafeArea(
+        child: Material(
+          color: Colors.transparent,
+          child: Stack(
+            children: [
+              Positioned(
+                  right: _closeIconRightPosition,
+                  top: _closeIconTopPosition,
+                  child: InkWell(
+                      onTap: () {
+                        Get.back();
+                        Get.delete<VideoPlayerAppController>();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: _closeIconSize,
+                      ))),
+              Center(
+                child: Container(
+                  color: MediaColors.blackGrey,
+                  width: _videoPlayerWidth,
+                  height: _videoPlayerHeight,
+                  child: videoPlayerController.chewieController.value != null &&
+                          videoPlayerController.chewieController.value!
+                              .videoPlayerController.value.isInitialized
+                      ? Chewie(
+                          controller:
+                              videoPlayerController.chewieController.value!,
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircularProgressIndicator(),
+                            SizedBox(height: _marginBetween),
+                            Text(StringsRes.loading),
+                          ],
+                        ),
+                ),
               ),
-            ),
-          ],
-        );
-      }),
-    );
+            ],
+          ),
+        ),
+      );
+    });
   }
 }
