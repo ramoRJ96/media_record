@@ -34,6 +34,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   @override
+  void dispose() {
+    Get.delete<VideoPlayerAppController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Material(
@@ -46,7 +52,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.delete<VideoPlayerAppController>();
                     },
                     child: Icon(
                       Icons.close,

@@ -33,6 +33,12 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   }
 
   @override
+  void dispose() {
+    Get.delete<AudioPlayerAppController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       var audioPlayerController =
