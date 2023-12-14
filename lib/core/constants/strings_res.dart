@@ -14,4 +14,6 @@ abstract class StringsRes {
   static String get noMedia => 'Aucun media';
   static String get homeAppBarTitle => 'Record Video & Audio';
   static String get materialAppTitle => 'Media Record';
+  static String get videoRecordError =>
+      "Une erreur est parvenue lors de l'enregistrement de la vidéo";
 }
