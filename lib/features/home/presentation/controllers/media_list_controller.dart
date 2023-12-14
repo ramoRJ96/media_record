@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:media_record/helper/shared_pref.dart';
 
 class MediaListController extends GetxController {
   var indexColor =
@@ -14,8 +14,7 @@ class MediaListController extends GetxController {
   }
 
   Future<void> getMediaFromStorage() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    mediaList.value = prefs.getStringList('medias') ?? [];
+    mediaList.value = SharedPrefHelper.getString('medias');
   }
 
   void getIndexColors() {

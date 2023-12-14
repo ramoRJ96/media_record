@@ -63,7 +63,7 @@ class RecordAudioController extends GetxController {
     try {
       String? path = await audioRecord.stop();
       if (path != null) {
-        SharedPrefHelper.addMediaInLocalStorage(path);
+        await SharedPrefHelper.addMediaInLocalStorage(path);
       }
       isRecording.value = false;
       audioPath = path!;

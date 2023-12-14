@@ -12,21 +12,18 @@ class SharedPrefHelper {
     return prefs!;
   }
 
-  static String getString(String key, [String? defValue]) {
-    return prefs?.getString(key) ?? defValue ?? "";
+  static List<String> getString(String key, [List<String>? defValue]) {
+    return prefs?.getStringList(key) ?? defValue ?? [];
   }
 
-  static Future<bool> setString(String key, String value) async {
+  static Future<bool> setString(String key, List<String> value) async {
     var prefs = await _instance;
-    return prefs.setString(key, value);
+    return prefs.setStringList(key, value);
   }
 
-  static void addMediaInLocalStorage(String filePath) {
-    if (prefs?.getStringList('medias') == null) {
-      prefs?.setStringList('medias', <String>[]);
-    }
-    var medias = prefs?.getStringList('medias')!;
-    medias?.add(filePath);
-    prefs?.setStringList('medias', medias ?? <String>[]);
+  static Future<void> addMediaInLocalStorage(String filePath) async {
+    var medias = getString('medias');
+    medias.add(filePath);
+    setString('medias', medias);
   }
 }

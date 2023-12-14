@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:media_record/core/constants/colors.dart';
+import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:media_record/features/home/presentation/widgets/media_list.dart';
 import 'package:media_record/widgets/app_bar_screen.dart';
@@ -28,6 +29,9 @@ class HomePage extends StatelessWidget {
           : Resources.videoRecordNotExactly10Sec;
       snackbarBackgroundColor =
           isRecorded ? MediaColors.snackbarSuccess : MediaColors.snackbarError;
+      if (isRecorded) {
+        await Get.find<MediaListController>().getMediaFromStorage();
+      }
     }
 
     final snackBar = SnackBar(

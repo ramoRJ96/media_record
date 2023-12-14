@@ -72,7 +72,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                         children: [
                           const CircularProgressIndicator(),
                           SizedBox(height: _marginBetween),
-                          Text(StringsRes.loading),
+                          Text(Resources.loading),
                         ],
                       ),
               ),

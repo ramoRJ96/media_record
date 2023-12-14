@@ -1,15 +1,10 @@
 import 'dart:io';
-import 'package:get/get.dart';
 import 'package:media_record/core/constants/constants.dart';
-import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/helper/shared_pref.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 
 class MyUtils {
-  static var pathVideos = <String>[];
-
   static Future<bool?> onVideoButtonPressed(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
 
@@ -21,10 +16,7 @@ class MyUtils {
       if (await isMediaLessThan10Sec(file.path)) {
         return false;
       }
-      GallerySaver.saveVideo(file.path);
-      SharedPrefHelper.addMediaInLocalStorage(file.path);
-      var mediaListController = Get.find<MediaListController>();
-      await mediaListController.getMediaFromStorage();
+      await SharedPrefHelper.addMediaInLocalStorage(file.path);
       return true;
     }
     return null;
