@@ -36,48 +36,46 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return SafeArea(
-        child: Material(
-          color: Colors.transparent,
-          child: Stack(
-            children: [
-              Positioned(
-                  right: _closeIconRightPosition,
-                  top: _closeIconTopPosition,
-                  child: InkWell(
-                      onTap: () {
-                        Get.back();
-                        Get.delete<VideoPlayerAppController>();
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: _closeIconSize,
-                      ))),
-              Center(
-                child: Container(
-                  color: MediaColors.blackGrey,
-                  width: _videoPlayerWidth,
-                  height: _videoPlayerHeight,
-                  child: videoPlayerController.chewieController.value != null &&
-                          videoPlayerController.chewieController.value!
-                              .videoPlayerController.value.isInitialized
-                      ? Chewie(
-                          controller:
-                              videoPlayerController.chewieController.value!,
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const CircularProgressIndicator(),
-                            SizedBox(height: _marginBetween),
-                            Text(StringsRes.loading),
-                          ],
-                        ),
-                ),
+      return Material(
+        color: Colors.transparent,
+        child: Stack(
+          children: [
+            Positioned(
+                right: _closeIconRightPosition,
+                top: _closeIconTopPosition,
+                child: InkWell(
+                    onTap: () {
+                      Get.back();
+                      Get.delete<VideoPlayerAppController>();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: _closeIconSize,
+                    ))),
+            Center(
+              child: Container(
+                color: MediaColors.blackGrey,
+                width: _videoPlayerWidth,
+                height: _videoPlayerHeight,
+                child: videoPlayerController.chewieController.value != null &&
+                        videoPlayerController.chewieController.value!
+                            .videoPlayerController.value.isInitialized
+                    ? Chewie(
+                        controller:
+                            videoPlayerController.chewieController.value!,
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          SizedBox(height: _marginBetween),
+                          Text(StringsRes.loading),
+                        ],
+                      ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     });

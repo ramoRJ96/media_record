@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/core/constants/strings_res.dart';
 import 'package:media_record/features/audio/controllers/audio_player_controller.dart';
-import 'package:media_record/widgets/app_bar_screen.dart';
 
 class AudioPlayerScreen extends StatefulWidget {
   const AudioPlayerScreen({
@@ -21,6 +20,11 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   final AudioPlayerAppController _audioPlayerAppController =
       Get.put(AudioPlayerAppController());
   final _marginBetween = 20.0;
+  final _closeIconRightPosition = 20.0;
+  final _closeIconTopPosition = 30.0;
+  final _closeIconSize = 35.0;
+  final _videoPlayerWidth = Get.width;
+  final _videoPlayerHeight = Get.height * .6;
 
   @override
   void initState() {
@@ -30,37 +34,52 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarScreen(),
-      body: SafeArea(
-        child: Obx(() {
-          var audioPlayerController =
-              _audioPlayerAppController.chewieController.value;
+    return Obx(() {
+      var audioPlayerController =
+          _audioPlayerAppController.chewieController.value;
 
-          return Column(
-            children: <Widget>[
-              Expanded(
-                child: Center(
-                  child: audioPlayerController != null &&
-                          audioPlayerController
-                              .videoPlayerController.value.isInitialized
-                      ? ChewieAudio(
+      return Material(
+        color: Colors.transparent,
+        child: Stack(
+          children: [
+            Positioned(
+                right: _closeIconRightPosition,
+                top: _closeIconTopPosition,
+                child: InkWell(
+                    onTap: () {
+                      Get.back();
+                      Get.delete<AudioPlayerAppController>();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: _closeIconSize,
+                    ))),
+            Center(
+              child: SizedBox(
+                width: _videoPlayerWidth,
+                height: _videoPlayerHeight,
+                child: audioPlayerController != null &&
+                        audioPlayerController
+                            .videoPlayerController.value.isInitialized
+                    ? Center(
+                        child: ChewieAudio(
                           controller: audioPlayerController,
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const CircularProgressIndicator(),
-                            SizedBox(height: _marginBetween),
-                            Text(StringsRes.loading),
-                          ],
                         ),
-                ),
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          SizedBox(height: _marginBetween),
+                          Text(StringsRes.loading),
+                        ],
+                      ),
               ),
-            ],
-          );
-        }),
-      ),
-    );
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
