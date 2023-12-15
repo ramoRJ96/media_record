@@ -25,7 +25,7 @@ class MyUtils {
     final videoInfo = FlutterVideoInfo();
     VideoData? info = await videoInfo.getVideoInfo(filePath);
     return info?.duration != null &&
-        (info!.duration! ~/ 1000) < Constants.recordDuration;
+        (info!.duration!.round() / 1000).round() < Constants.recordDuration;
   }
 
   static String strDigits(int n) => n.toString().padLeft(2, '0');
