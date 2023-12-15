@@ -86,6 +86,7 @@ class RecordAudioController extends GetxController {
   @override
   void onClose() {
     audioRecord.dispose();
+    cancelAudioRecording();
     super.onClose();
   }
 }
