@@ -10,7 +10,7 @@ class AudioPlayerAppController extends GetxController {
   int? bufferDelay;
 
   /// Initialize all stuffs for the audio player
-  /// 
+  ///
   /// You can use network url or file path for the [media]
   Future<void> initializePlayer(String media) async {
     videoPlayerController = _isNetworkUrl(media)
@@ -21,7 +21,7 @@ class AudioPlayerAppController extends GetxController {
     refresh();
   }
 
-  /// Check if the [path] is a network url 
+  /// Check if the [path] is a network url
   bool _isNetworkUrl(String path) {
     Uri? uri = Uri.tryParse(path);
     if (uri != null) {
