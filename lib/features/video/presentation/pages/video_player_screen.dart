@@ -1,8 +1,8 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:media_record/core/constants/colors.dart';
-import 'package:media_record/core/constants/resources.dart';
+import 'package:media_record/core/colors.dart';
+import 'package:media_record/core/resources.dart';
 import 'package:media_record/features/video/presentation/controllers/video_player_controller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {

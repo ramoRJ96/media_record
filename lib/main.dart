@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_record/core/constants/resources.dart';
+import 'package:media_record/core/resources.dart';
 import 'package:media_record/features/home/presentation/pages/home_page.dart';
 import 'package:get/get.dart';
 import 'helper/shared_pref.dart';

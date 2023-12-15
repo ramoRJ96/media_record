@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:media_record/widgets/app_bar_screen.dart';
-import '../../../../core/constants/resources.dart';
+import '../../../../core/resources.dart';
 import '../controllers/record_audio_controller.dart';
 
 class RecordAudioPage extends StatelessWidget {

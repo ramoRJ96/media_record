@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:media_record/core/constants/colors.dart';
+import 'package:media_record/core/colors.dart';
 import 'package:media_record/helper/shared_pref.dart';
 
 class MediaListController extends GetxController {

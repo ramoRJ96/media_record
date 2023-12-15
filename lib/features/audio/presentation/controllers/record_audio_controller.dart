@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:media_record/core/constants/constants.dart';
+import 'package:media_record/core/constants.dart';
 import 'package:media_record/helper/shared_pref.dart';
 import 'package:record/record.dart';
 import 'package:get/get.dart';

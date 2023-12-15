@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:media_record/core/constants/colors.dart';
+import 'package:media_record/core/colors.dart';
 import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/utils/my_utils.dart';
 import 'package:media_record/features/home/presentation/widgets/media_list.dart';
 import 'package:media_record/widgets/app_bar_screen.dart';
-import '../../../../core/constants/resources.dart';
+import '../../../../core/resources.dart';
 import 'package:get/get.dart';
 
 import '../../../audio/presentation/pages/record_audio_page.dart';

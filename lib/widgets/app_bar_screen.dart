@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:media_record/core/constants/colors.dart';
+import 'package:media_record/core/colors.dart';
 import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 
 class AppBarScreen extends StatelessWidget implements PreferredSizeWidget {

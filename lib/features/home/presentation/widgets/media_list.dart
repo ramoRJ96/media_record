@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:media_record/core/constants/colors.dart';
-import 'package:media_record/core/constants/resources.dart';
+import 'package:media_record/core/colors.dart';
+import 'package:media_record/core/resources.dart';
 import 'package:media_record/features/audio/presentation/pages/audio_player_screen.dart';
 import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/features/video/presentation/pages/video_player_screen.dart';
@@ -10,6 +10,7 @@ class MediaList extends StatelessWidget {
   const MediaList({super.key});
 
   final gridCrossCount = 2;
+  final iconSize = 40.0;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class MediaList extends StatelessWidget {
                   child: Center(
                       child: Icon(
                     icon,
-                    size: 40,
+                    size: iconSize,
                     color: Colors.white,
                   )),
                 ),
