@@ -26,7 +26,8 @@ class RecordAudioPage extends StatelessWidget {
               if (!recordAudioController.isRecording.value)
                 Text(
                   Resources.pressToStartRecord,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  textAlign: TextAlign.center,
                 ),
               SizedBox(
                 height: _marginBetween,
