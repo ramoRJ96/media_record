@@ -15,9 +15,9 @@ class Resources {
   static String get homeAppBarTitle => 'Record Video & Audio';
   static String get materialAppTitle => 'Media Record';
   static String get videoRecordError =>
-      "Une erreur est parvenue lors de l'enregistrement de la vidéo";
+      "Une erreur est survenue lors de l'enregistrement de la vidéo";
   static String get videoRecordNotExactly10Sec =>
-      "La vidéo n'est pas 10 seconde exactement !!!";
+      "Vidéo non enregistrée. Veuillez enregistrer une vidéo de 10 secondes";
   static String get videoRecordSuccessfully =>
-      "Vidéo enregistrée avec succès !!!";
+      "Vidéo enregistrée avec succès !";
 }
