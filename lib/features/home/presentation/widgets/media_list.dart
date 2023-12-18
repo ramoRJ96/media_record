@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_record/core/colors.dart';
-import 'package:media_record/core/constants.dart';
+import 'package:media_record/core/enum/extension.dart';
 import 'package:media_record/core/resources.dart';
 import 'package:media_record/features/audio/presentation/pages/audio_player_screen.dart';
 import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
@@ -37,8 +37,9 @@ class MediaList extends StatelessWidget {
             itemCount: mediaList.length,
             itemBuilder: (BuildContext context, int index) {
               mediaListController.getIndexColors();
-              bool isMediaVideo = mediaList[index].contains(Constants.mp4) ||
-                  mediaList[index].contains(Constants.mov);
+              bool isMediaVideo = mediaList[index]
+                      .contains(Extension.mp4.name) ||
+                  mediaList[index].toLowerCase().contains(Extension.mov.name);
               IconData icon =
                   isMediaVideo ? Icons.play_arrow_rounded : Icons.music_note;
               return Card(
