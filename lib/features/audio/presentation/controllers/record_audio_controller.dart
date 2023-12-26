@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:media_record/core/constants.dart';
+import 'package:media_record/features/audio/presentation/component/record_audio_component.dart';
 import 'package:media_record/helper/shared_pref.dart';
 import 'package:record/record.dart';
 import 'package:get/get.dart';
@@ -47,30 +48,22 @@ class RecordAudioController extends GetxController {
     }
   }
 
-  Future<void> startAudioRecording() async {
-    try {
-      if (await audioRecord.hasPermission()) {
-        await audioRecord.start();
-        isRecording.value = true;
-        startTimer();
-      }
-    } catch (e) {
-      debugPrint('Error Start Recording : $e');
-    }
+  var recordAudioComponent = RecordAudioComponent();
+
+  void startAudioRecording() async {
+    await recordAudioComponent.startRecordingAudio();
+    isRecording.value = true;
+    startTimer();
   }
 
   void stopAudioRecording() async {
-    try {
-      String? path = await audioRecord.stop();
-      if (path != null) {
-        await SharedPrefHelper.addMediaInLocalStorage(path);
-      }
-      isRecording.value = false;
-      audioPath = path!;
-      resetTimer();
-    } catch (e) {
-      debugPrint('Error Stop Recording : $e');
+    String? path = await recordAudioComponent.stopRecordingAudio();
+    if (path != null) {
+      await SharedPrefHelper.addMediaInLocalStorage(path);
     }
+    isRecording.value = false;
+    audioPath = path!;
+    resetTimer();
   }
 
   Future<void> cancelAudioRecording() async {

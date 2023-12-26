@@ -7,29 +7,26 @@ import 'package:media_record/features/audio/presentation/pages/audio_player_scre
 import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/features/video/presentation/pages/video_player_screen.dart';
 
-class MediaList extends StatelessWidget {
-  const MediaList({super.key});
+class MediaListWidget extends StatelessWidget {
+  const MediaListWidget({super.key});
 
   final gridCrossCount = 2;
   final iconSize = 40.0;
 
+
   @override
   Widget build(BuildContext context) {
     MediaListController mediaListController = Get.put(MediaListController());
+    List<String> mediaList = mediaListController.mediaList;
     return Expanded(
       child: Obx(() {
-        List<String> mediaList = mediaListController.mediaList;
-
-        if (mediaList.isEmpty) {
-          return Center(
+         return (mediaList.isEmpty) ? Center(
             child: Text(
               Resources.noMedia,
               style: Theme.of(context).textTheme.titleLarge,
             ),
-          );
-        }
-
-        return GridView.builder(
+        )
+        : GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: gridCrossCount,
             ),
@@ -40,7 +37,7 @@ class MediaList extends StatelessWidget {
               bool isMediaVideo = mediaList[index].contains(Constants.mp4) ||
                   mediaList[index].contains(Constants.mov);
               IconData icon =
-                  isMediaVideo ? Icons.play_arrow_rounded : Icons.music_note;
+              isMediaVideo ? Icons.play_arrow_rounded : Icons.music_note;
               return Card(
                 color: MediaColors.gridViewColors
                     .elementAt(mediaListController.indexColor),
@@ -54,10 +51,10 @@ class MediaList extends StatelessWidget {
                   },
                   child: Center(
                       child: Icon(
-                    icon,
-                    size: iconSize,
-                    color: Colors.white,
-                  )),
+                        icon,
+                        size: iconSize,
+                        color: Colors.white,
+                      )),
                 ),
               );
             });
