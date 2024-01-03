@@ -3,6 +3,9 @@ class Resources {
   static String get buttonTextAudio => 'Audio';
   static String get buttonTextCancelRecording => 'Annuler';
   static String get buttonTextStartRecording => 'Start';
+  static String get textCancel => 'Annuler';
+  static String get textDelete => 'Supprimer';
+  static String get textElementDeleted => 'Supprimé';
   static String get loading => 'Chargement';
   static String get audioRecord => 'Enregistrement audio';
   static String get pressToStartRecord =>
@@ -16,10 +19,18 @@ class Resources {
   static String get materialAppTitle => 'Media Record';
   static String get videoRecordError =>
       "Une erreur est survenue lors de l'enregistrement de la vidéo";
+  static String get audioRecordError =>
+      "Une erreur est survenue lors de l'enregistrement de l'audio";
   static String get videoRecordCancel =>
       "Enregistrement de la vidéo annulé";
+  static String get audioRecordCancel =>
+      "Enregistrement de l'audio annulé";
   static String get videoRecordNotExactly10Sec =>
       "Vidéo non enregistrée. Veuillez enregistrer une vidéo de 10 secondes";
-  static String get videoRecordSuccessfully =>
+  static String get videoRecordSuccess =>
       "Vidéo enregistrée avec succès !";
+  static String get audioRecordSuccess =>
+      "Audio enregistrée avec succès !";
+  static String get confirmDeletingElement =>
+      "Voulez-vous vraiment supprimer cet élément ?";
 }

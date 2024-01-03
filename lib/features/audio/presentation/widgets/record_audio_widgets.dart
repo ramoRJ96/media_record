@@ -44,7 +44,9 @@ class RecordAudioWidgets {
                 ),
               ElevatedButton(
                 onPressed: recordAudioController.isRecording.value
-                    ? recordAudioController.cancelAudioRecording
+                    ?
+                  recordAudioController.cancelAudioRecording
+
                     : recordAudioController.startAudioRecording,
                 child: recordAudioController.isRecording.value
                     ? Text(Resources.buttonTextCancelRecording)

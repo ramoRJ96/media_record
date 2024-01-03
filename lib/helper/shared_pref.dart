@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async' show Future;
 
@@ -24,6 +26,14 @@ class SharedPrefHelper {
   static Future<void> addMediaInLocalStorage(String filePath) async {
     var medias = getString('medias');
     medias.add(filePath);
+    setString('medias', medias);
+  }
+
+  static Future<void> deleteMediaInLocalStorage(String filePath) async {
+    var medias = getString('medias');
+    int index = medias.indexOf(filePath);
+    medias.removeAt(index);
+    File(filePath).delete();
     setString('medias', medias);
   }
 }

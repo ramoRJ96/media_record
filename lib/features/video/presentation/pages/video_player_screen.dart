@@ -18,7 +18,7 @@ class VideoPlayerScreen extends StatefulWidget {
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  final VideoPlayerAppController videoPlayerController =
+  final VideoPlayerAppController videoPlayerAppController =
       Get.put(VideoPlayerAppController());
   final _marginBetween = 30.0;
   final _closeIconRightPosition = 20.0;
@@ -29,7 +29,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void initState() {
-    videoPlayerController.initializePlayer(widget.media);
+    videoPlayerAppController.initializePlayer(widget.media);
     super.initState();
   }
 
@@ -63,12 +63,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 color: MediaColors.blackGrey,
                 width: _videoPlayerWidth,
                 height: _videoPlayerHeight,
-                child: videoPlayerController.chewieController.value != null &&
-                        videoPlayerController.chewieController.value!
+                child: videoPlayerAppController.chewieController.value != null &&
+                        videoPlayerAppController.chewieController.value!
                             .videoPlayerController.value.isInitialized
                     ? Chewie(
                         controller:
-                            videoPlayerController.chewieController.value!,
+                            videoPlayerAppController.chewieController.value!,
                       )
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,

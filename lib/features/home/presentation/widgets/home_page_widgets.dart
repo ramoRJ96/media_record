@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:media_record/features/audio/presentation/component/record_video_component.dart';
 import 'package:media_record/features/home/presentation/widgets/media_list_widget.dart';
 import 'package:media_record/features/video/presentation/controllers/record_video_controller.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/resources.dart';
 import '../../../audio/presentation/pages/record_audio_page.dart';
+import '../controllers/media_list_controller.dart';
 
 class HomePageWidgets {
-
   static Widget body(BuildContext context, [bool mounted = true]) {
     return Column(
       children: [
@@ -24,7 +23,7 @@ class HomePageWidgets {
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         recordButton(context, mounted),
-        const MediaListWidget(),
+        MediaListWidget(),
       ],
     );
   }
