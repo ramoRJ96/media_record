@@ -5,7 +5,7 @@ class Resources {
   static String get buttonTextStartRecording => 'Start';
   static String get textCancel => 'Annuler';
   static String get textDelete => 'Supprimer';
-  static String get textElementDeleted => 'Supprimé';
+  static String get textElementDeleted => 'Elément supprimé';
   static String get loading => 'Chargement';
   static String get audioRecord => 'Enregistrement audio';
   static String get pressToStartRecord =>
@@ -32,5 +32,5 @@ class Resources {
   static String get audioRecordSuccess =>
       "Audio enregistrée avec succès !";
   static String get confirmDeletingElement =>
-      "Voulez-vous vraiment supprimer cet élément ?";
+      "Etes-vous sûr de vouloir supprimer ";
 }
