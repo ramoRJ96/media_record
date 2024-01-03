@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:media_record/core/constants.dart';
 import 'package:media_record/features/audio/presentation/component/record_audio_component.dart';
+import 'package:media_record/features/home/presentation/controllers/media_list_controller.dart';
 import 'package:media_record/features/home/presentation/pages/home_page.dart';
 import 'package:media_record/helper/shared_pref.dart';
 import 'package:media_record/main.dart';
@@ -62,12 +63,15 @@ class RecordAudioController extends GetxController {
   }
 
   void stopAudioRecording() async {
-    String? path = await recordAudioComponent.stopRecordingAudio();
-    if (path != null) {
-      await SharedPrefHelper.addMediaInLocalStorage(path);
+    if (isRecording.value) {
+      String? path = await recordAudioComponent.stopRecordingAudio();
+      if (path != null) {
+        await SharedPrefHelper.addMediaInLocalStorage(path);
+      }
     }
     isRecording.value = false;
-    audioPath = path!;
+    Get.find<MediaListController>().getMediaFromStorage();
+    // audioPath = path!;
     resetTimer();
 
     final snackBar = SnackBar(
@@ -75,7 +79,7 @@ class RecordAudioController extends GetxController {
       content: Text(Resources.audioRecordSuccess),
     );
       ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
-      // Get.back();
+      Get.back();
   }
 
   Future<void> cancelAudioRecording() async {

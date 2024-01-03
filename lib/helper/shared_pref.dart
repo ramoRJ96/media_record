@@ -26,7 +26,7 @@ class SharedPrefHelper {
   static Future<void> addMediaInLocalStorage(String filePath) async {
     var medias = getString('medias');
     medias.add(filePath);
-    setString('medias', medias);
+    await setString('medias', medias);
   }
 
   static Future<void> deleteMediaInLocalStorage(String filePath) async {
@@ -34,6 +34,6 @@ class SharedPrefHelper {
     int index = medias.indexOf(filePath);
     medias.removeAt(index);
     File(filePath).delete();
-    setString('medias', medias);
+    await setString('medias', medias);
   }
 }
